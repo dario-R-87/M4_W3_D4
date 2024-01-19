@@ -21,5 +21,9 @@ export const filterUsers = () => {
             (user) => user[filter].toLowerCase().indexOf(value.toLowerCase().trim()) !== -1);
         tableBody = getTableRows(filteredUsers);
         table.innerHTML = tableBody;
-        } else alert("Please, select a filter type!");
+        } else {
+            const select = document.querySelector("#select");
+            select.classList.add("error"); 
+            alert("Please, select a filter type!") 
+        };
 };
