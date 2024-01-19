@@ -1,9 +1,15 @@
 import {getUsers, filterUsers} from "./components/users.js";
 
 const url ="https://jsonplaceholder.typicode.com/users";
+const select = document.querySelector("#select");
+const input = document.querySelector("#search");
+input.value=localStorage.getItem("filterValue") ? localStorage.getItem("filterValue") : "";
+select.value=localStorage.getItem("filterBy") ? localStorage.getItem("filterBy") : "select";
+const submitBtn = document.querySelector("#submit");
+submitBtn.addEventListener("click", filterUsers);
+const deleteBtn = document.querySelector("#empty");
 
 getUsers(url);
-const select = document.querySelector("#select");
 
 const storeFilterSelected = (event) => {
     if(event.target.value!=="select")
@@ -12,21 +18,31 @@ const storeFilterSelected = (event) => {
 }
 
 const storeInputValue = (event) => {
+    if(event.target.value!=="select")
+         input.classList.remove("error"); 
     localStorage.setItem("filterValue",event.target.value);
  }
 
-const submitBtn = document.querySelector("#submit");
-submitBtn.addEventListener("click", filterUsers);
+ const deleteFilter = ()=>{
+    document.querySelector(".loader").classList.remove("d-none");
+    document.querySelector(".table").classList.add("d-none");
+    getUsers(url);
+    input.value="";
+    select.value="select"
+    localStorage.setItem("filterBy","select");
+    localStorage.setItem("filterValue","");
+    setTimeout(()=>{
+        document.querySelector(".loader").classList.add("d-none");
+        document.querySelector(".table").classList.remove("d-none");
+    },1500);
+ };
 
-
-const input = document.querySelector("#search");
 input.addEventListener("keyup", (e)=>{
     storeInputValue(e);
 });
-
 
 select.addEventListener("change", (e)=>{
     storeFilterSelected(e);
 });
 
-input.value=localStorage.getItem("filterValue");
+deleteBtn.addEventListener("click", deleteFilter);

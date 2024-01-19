@@ -26,7 +26,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link rel="icon" type="image/gif" href="./assets/favicon.jpeg" />
+    <link rel="icon" type="image/gif" href="./assets/favicon.jpg" />
   </head>
   <body>
     <div id="main" class="container bg-primary p-3 my-3">
@@ -47,12 +47,19 @@
         >
             Enter
         </button>
+        <button
+        id="empty"
+        type="button"
+        class="btn btn-danger border border-tertiary"
+      >
+          Delete filter
+      </button>
       </div>
       
 
       <h1 class="mt-5 mb-0 mx-3">Users List</h1>
-      <div class="loader d-none"></div>
-      <table class="table mt-5">
+      <div class="loader"></div>
+      <table class="table mt-5 d-none">
         <thead class="table-light">
           <tr>
             <th>N.</th>
