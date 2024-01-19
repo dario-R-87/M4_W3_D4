@@ -15,10 +15,7 @@ export const getUsers = async (url) => {
         if(value!=="" && filter!=="select"){
             filterUsers();
         }
-        setTimeout(()=>{
-            document.querySelector(".loader").classList.add("d-none");
-            document.querySelector(".table").classList.remove("d-none");
-        },1500);
+        toggleLoader(false);
     } catch (e) { console.error(e); }
 }
 
@@ -36,12 +33,20 @@ export const filterUsers = () => {
         input.classList.add("error"); 
         alert("Please, insert text");
     } else {
-        document.querySelector(".loader").classList.remove("d-none");
-        document.querySelector(".table").classList.add("d-none");
+        toggleLoader(true);
         const filteredUsers = users.filter(
             (user) => user[filter].toLowerCase().indexOf(value.toLowerCase().trim()) !== -1);
         tableBody = getTableRows(filteredUsers);
         table.innerHTML = tableBody;
+        toggleLoader(false);
+    }
+};
+
+export const toggleLoader = (flag) => {
+    if(flag){
+        document.querySelector(".loader").classList.remove("d-none");
+        document.querySelector(".table").classList.add("d-none");
+    } else {
         setTimeout(()=>{
             document.querySelector(".loader").classList.add("d-none");
             document.querySelector(".table").classList.remove("d-none");

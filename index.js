@@ -1,4 +1,4 @@
-import {getUsers, filterUsers} from "./components/users.js";
+import {getUsers, filterUsers, toggleLoader} from "./components/users.js";
 
 const url ="https://jsonplaceholder.typicode.com/users";
 const select = document.querySelector("#select");
@@ -24,17 +24,13 @@ const storeInputValue = (event) => {
  }
 
  const deleteFilter = ()=>{
-    document.querySelector(".loader").classList.remove("d-none");
-    document.querySelector(".table").classList.add("d-none");
+    toggleLoader(true);
     getUsers(url);
     input.value="";
     select.value="select"
     localStorage.setItem("filterBy","select");
     localStorage.setItem("filterValue","");
-    setTimeout(()=>{
-        document.querySelector(".loader").classList.add("d-none");
-        document.querySelector(".table").classList.remove("d-none");
-    },1500);
+    toggleLoader(false);
  };
 
 input.addEventListener("keyup", (e)=>{
