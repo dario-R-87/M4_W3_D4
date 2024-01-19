@@ -26,3 +26,5 @@ input.addEventListener("keyup", (e)=>{
 select.addEventListener("change", (e)=>{
     storeFilterSelected(e);
 });
+
+input.value=localStorage.getItem("filterValue");
