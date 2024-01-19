@@ -1,13 +1,25 @@
 import {getUsers, filterUsers, toggleLoader} from "./components/users.js";
 
+export const getCurrentInputValue = ()=>{
+    const values = {
+        filterType: localStorage.getItem("filterBy") ? localStorage.getItem("filterBy") : "select",
+        filterValue: localStorage.getItem("filterValue") ? localStorage.getItem("filterValue") : "",
+    }
+    return values;
+ }
+
 const url ="https://jsonplaceholder.typicode.com/users";
 const select = document.querySelector("#select");
 const input = document.querySelector("#search");
-input.value=localStorage.getItem("filterValue") ? localStorage.getItem("filterValue") : "";
-select.value=localStorage.getItem("filterBy") ? localStorage.getItem("filterBy") : "select";
+const values = getCurrentInputValue();
+input.value = values.filterValue;
+select.value = values.filterType;
 const submitBtn = document.querySelector("#submit");
 submitBtn.addEventListener("click", filterUsers);
 const deleteBtn = document.querySelector("#empty");
+
+
+
 
 getUsers(url);
 
